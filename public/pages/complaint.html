@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col">
+		<div class="card border-danger">
+			<div class="card-header bg-danger text-white">
+				Title: {{complaintData.title}}<span class="pull-right">SubCategory: {{complaintData.sc}}</span>
+			</div>
+			<div class="card-body">
+				<p class="card-text">{{complaintData.des}}</p>
+			</div>
+		</div>
+		<h3 class="text-center mt-4" ng-if="complaintData.conv.length==0">No replies yet</h3>
+		<div class="card border-primary mt-2" ng-show="complaintData.conv.length>0" ng-repeat="x in complaintData.conv">
+			<div class="card-header bg-transparent">
+				Reply by: {{ x.repliedby?'Staff':homeData.email }}<span class="pull-right">Time: {{x.time*1000 | date: 'MMM d, y H:mm:ss'}}</span>
+			</div>
+			<div class="card-body">
+				<p class="card-text">{{x.msg}}</p>
+			</div>
+		</div>
+		<form name="complaintReplyForm" class="form-horizontal mt-4" ng-show="complaintData.status==0">
+			<div class="form-group">
+				<label>Reply:</label>
+				<div class="col-xs-12">
+					<textarea class="form-control" ng-model="newReply" placeholder="Enter your reply here..." ng-minlength="1" required></textarea>
+				</div>
+			</div>
+			<div class="form-group text-center">
+				<button class="btn btn-primary btn-lg" id="btnLoad" ng-disabled="complaintReplyForm.$invalid" ng-click="complaintReply()">Submit Reply</button>
+			</div>
+		</form>
+	</div>
+</div>

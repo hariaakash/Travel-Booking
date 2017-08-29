@@ -1,0 +1,72 @@
+<div class="row">
+	<div class="col">
+		<div class="card border-primary">
+			<div class="card-header bg-transparent text-center">
+				Complaints
+			</div>
+			<div class="card-body">
+				<h4 class="card-title" ng-show="!homeData.complaints.length">No complaints yet ..</h4>
+				<button class="btn btn-primary pull-right mb-2" ng-click="openModal('addComplaint')">Create a complaint</button>
+				<table class="table table-hover text-center" ng-show="homeData.complaints.length">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Title</th>
+							<th>Description</th>
+							<th>Status</th>
+							<th>Latest Reply</th>
+							<th>View</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="x in homeData.complaints">
+							<th scope="row">{{$index+1}}</th>
+							<td>{{x.title}}</td>
+							<td>{{x.des}}</td>
+							<td><i class="fa fa-dot-circle-o fa-blink" ng-class="{'text-success': x.status === 1, 'text-danger': x.status === 0}"></i></td>
+							<td>{{ x.latestreply?'Staff':homeData.email}}</td>
+							<td ui-sref="dashboard.complaint({cId: x.id})"><i class="fa fa-envelope-open text-primary"></i></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer bg-transparent text-center">
+				<i class="fa fa-dot-circle-o fa-blink text-success"></i> Solved | <i class="fa fa-dot-circle-o fa-blink text-danger"></i> Not solved
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="addComplaint" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Add a new Complaint</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<form name="addComplaintForm">
+					<div class="form-group">
+						<label>Category: </label>
+						<select class="form-control" ng-model="addComplaintForm.cat" ng-options="x as x.name for x in categories"><option value="">Select a category...</option></select>
+					</div>
+					<div class="form-group" ng-show="addComplaintForm.cat">
+						<label>Category: </label>
+						<select class="form-control" ng-model="addComplaintForm.scat" ng-options="y as y.name for y in addComplaintForm.cat.sc"><option value="">Select a sub-category...</option></select>
+					</div>
+					<div class="form-group">
+						<label class="form-control-label">Title:</label>
+						<input type="text" class="form-control" ng-model="addComplaintForm.title" required>
+					</div>
+					<div class="form-group">
+						<label class="form-control-label">Description:</label>
+						<textarea class="form-control" ng-model="addComplaintForm.des" required></textarea>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" ng-disabled="addComplaintForm.$invalid" ng-click="addComplaint()">Submit</button>
+			</div>
+		</div>
+	</div>
+</div>

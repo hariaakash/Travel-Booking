@@ -1,0 +1,29 @@
+<div class="container">
+
+	<div class="header clearfix">
+		<nav>
+			<ul class="nav nav-pills float-right">
+				<li class="nav-item">
+					<a class="nav-link" ui-sref="dashboard.home" ui-sref-active="active">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" ui-sref="dashboard.login" ng-hide="signStatus" ui-sref-active="active">Login</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" ui-sref="dashboard.register" ng-hide="signStatus" ui-sref-active="active">Register</a>
+				</li>
+				<li class="nav-item" ng-click="logout()">
+					<a class="nav-link" ui-sref="dashboard.register" ng-hide="!signStatus" ui-sref-active="active">Logout</a>
+				</li>
+			</ul>
+		</nav>
+		<h3 class="text-muted"><i class="fa fa-bug text-danger"></i> ComplaintMS</h3>
+	</div>
+
+	<ui-view></ui-view>
+
+	<footer class="footer text-center">
+		<p>&copy; ComplaintMS 2017</p>
+	</footer>
+
+</div>
